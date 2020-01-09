@@ -52,7 +52,13 @@ SettingsManager::SettingsManager() {
         file << this->settings_root;
 
     }
-    //this->set_wow_folder_paths(this->get_base_wow_path());
+
+    if(!boost::filesystem::exists("wam_files")){
+        boost::filesystem::create_directories("wam_files");
+        boost::filesystem::create_directories("wam_files/retail");
+        boost::filesystem::create_directories("wam_files/classic");
+        boost::filesystem::create_directories("wam_files/ptr");
+    }
 }
 
 std::string SettingsManager::get_retail_addons_path() const {
