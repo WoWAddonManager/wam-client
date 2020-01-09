@@ -24,11 +24,18 @@ void MainWindow::test() {
 void MainWindow::swap_addon_list(const QString &version){
     if(version == "Retail"){
         ui->classic_table->hide();
+        ui->ptr_table->hide();
         ui->retail_table->show();
     }
-    else {
+    else if(version == "Classic"){
         ui->retail_table->hide();
+        ui->ptr_table->hide();
         ui->classic_table->show();
+    }
+    else  {
+        ui->retail_table->hide();
+        ui->classic_table->hide();
+        ui->ptr_table->show();
     }
 }
 
@@ -43,13 +50,16 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager *settings) :
     this->settings = settings;
     ui->setupUi(this);
     ui->classic_table->hide();
+    ui->ptr_table->hide();
     //ui->retail_table->horizontalHeader()->setStretchLastSection(true);
-    for(int i = 0; i < 3;  i++){
+    for(int i = 0; i < 4;  i++){
         ui->retail_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         ui->classic_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        ui->ptr_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
     }
     ui->retail_table->setColumnWidth(4, 80);
     ui->classic_table->setColumnWidth(4, 80);
+    ui->ptr_table->setColumnWidth(4, 80);
 
     ui->tabWidget->setCurrentIndex(0);
 
