@@ -41,6 +41,7 @@ public:
     QComboBox *wow_version_combo_box;
     QLabel *wow_version_label;
     QTableWidget *retail_table;
+    QTableWidget *ptr_table;
     QWidget *settings_tab;
     QGridLayout *gridLayout_2;
     QLineEdit *lineEdit;
@@ -121,6 +122,23 @@ public:
 
         gridLayout->addWidget(retail_table, 7, 0, 1, 3);
 
+        ptr_table = new QTableWidget(addon_tab);
+        if (ptr_table->columnCount() < 5)
+            ptr_table->setColumnCount(5);
+        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(0, __qtablewidgetitem10);
+        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(1, __qtablewidgetitem11);
+        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(2, __qtablewidgetitem12);
+        QTableWidgetItem *__qtablewidgetitem13 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(3, __qtablewidgetitem13);
+        QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(4, __qtablewidgetitem14);
+        ptr_table->setObjectName(QString::fromUtf8("ptr_table"));
+
+        gridLayout->addWidget(ptr_table, 1, 0, 1, 3);
+
         tabWidget->addTab(addon_tab, QString());
         settings_tab = new QWidget();
         settings_tab->setObjectName(QString::fromUtf8("settings_tab"));
@@ -192,6 +210,14 @@ public:
         ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Peers", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = retail_table->horizontalHeaderItem(3);
         ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "Note", nullptr));
+        QTableWidgetItem *___qtablewidgetitem8 = ptr_table->horizontalHeaderItem(0);
+        ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
+        QTableWidgetItem *___qtablewidgetitem9 = ptr_table->horizontalHeaderItem(1);
+        ___qtablewidgetitem9->setText(QCoreApplication::translate("MainWindow", "Version", nullptr));
+        QTableWidgetItem *___qtablewidgetitem10 = ptr_table->horizontalHeaderItem(2);
+        ___qtablewidgetitem10->setText(QCoreApplication::translate("MainWindow", "Peers", nullptr));
+        QTableWidgetItem *___qtablewidgetitem11 = ptr_table->horizontalHeaderItem(3);
+        ___qtablewidgetitem11->setText(QCoreApplication::translate("MainWindow", "Note", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(addon_tab), QCoreApplication::translate("MainWindow", "Addons", nullptr));
         set_wow_path_btn->setText(QCoreApplication::translate("MainWindow", "Browse", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "WoW Folder Path", nullptr));
