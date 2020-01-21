@@ -1,12 +1,12 @@
 #include <QApplication>
 #include <libtorrent/session.hpp>
 #include <string>
-#include "addon.h"
 #include "mainwindow.h"
+#include "upload_addon_dialog.h"
 #include "settingsmanager.h"
 #include "database.h"
-#include <bsoncxx/builder/basic/document.hpp>
-#include <bsoncxx/builder/basic/kvp.hpp>
+#include "addon.h"
+
 
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_document;
@@ -23,9 +23,12 @@ int main(int argc, char *argv[]) {
 //    for(auto doc : cursor){
 //        std::cout << bsoncxx::to_json(doc) << std::endl;
 //    }
-    database->search_database("name", "Addon 3");
+
+    Addon::get_installed_adddons(Addon::WoWVersion::Retail);
+
     window->show();
 
 
     return QApplication::exec();
+
 }

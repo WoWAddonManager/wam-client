@@ -2,11 +2,7 @@
 // Created by jordan on 12/29/19.
 //
 #include <mongocxx/client.hpp>
-#include <mongocxx/instance.hpp>
-#include <bsoncxx/json.hpp>
 #include <boost/format.hpp>
-#include <iostream>
-#include "utils.h"
 #include "database.h"
 
 

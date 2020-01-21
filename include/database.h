@@ -9,10 +9,10 @@
 #include <mongocxx/instance.hpp>
 #include <bsoncxx/json.hpp>
 #include <bsoncxx/builder/stream/document.hpp>
-#include <utils.h>
 #include <bsoncxx/builder/basic/document.hpp>
 #include <bsoncxx/builder/basic/kvp.hpp>
-
+#include <iostream>
+#include "utils.h"
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_document;
 
@@ -24,8 +24,7 @@ public:
     template<class T, class U>
     Json::Value search_database(T &key, U &value) {
         Json::Value json;
-       auto cursor  = this->addons_db.find(make_document(
-            kvp(key, value)));
+       auto cursor  = this->addons_db.find(make_document(kvp(key, value)));
         for(auto doc : cursor){
             std::cout << bsoncxx::to_json(doc) << std::endl;
         }
@@ -37,7 +36,6 @@ public:
     mongocxx::database db;
     mongocxx::collection users_db;
     mongocxx::collection addons_db;
-
 
 private:
 

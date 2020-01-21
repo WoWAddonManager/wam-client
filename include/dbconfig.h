@@ -7,7 +7,7 @@
 
 #include <string>
 
-const std::string username = "";
-const std::string passowrd = "";
+const std::string db_username = "root";
+const std::string db_password = "example";
 
 #endif //WAM_DBCONFIG_H
