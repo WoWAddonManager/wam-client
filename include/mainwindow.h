@@ -5,25 +5,21 @@
 #include "ui_mainwindow.h"
 #include "settingsmanager.h"
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr, SettingsManager* settings = nullptr);
+    explicit MainWindow(QWidget *parent, SettingsManager *settings);
     void fill_in_settings(const SettingsManager &settings);
     ~MainWindow();
-
+    void swap_addon_list(const QString &version);
 private:
     Ui::MainWindow *ui;
     SettingsManager *settings;
-private slots:
-    void test();
-    void quit();
-    void swap_addon_list(const QString &version);
 };
 
 #endif // MAINWINDOW_H

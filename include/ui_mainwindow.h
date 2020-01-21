@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.13.2
+** Created by: Qt User Interface Compiler version 5.14.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -32,6 +32,7 @@ class Ui_MainWindow
 {
 public:
     QAction *actionQuit;
+    QAction *actionUploadAddon;
     QWidget *centralwidget;
     QGridLayout *gridLayout_3;
     QTabWidget *tabWidget;
@@ -58,6 +59,8 @@ public:
         MainWindow->resize(813, 650);
         actionQuit = new QAction(MainWindow);
         actionQuit->setObjectName(QString::fromUtf8("actionQuit"));
+        actionUploadAddon = new QAction(MainWindow);
+        actionUploadAddon->setObjectName(QString::fromUtf8("actionUploadAddon"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout_3 = new QGridLayout(centralwidget);
@@ -172,12 +175,13 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 813, 22));
+        menuBar->setGeometry(QRect(0, 0, 813, 20));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         MainWindow->setMenuBar(menuBar);
 
         menuBar->addAction(menuFile->menuAction());
+        menuFile->addAction(actionUploadAddon);
         menuFile->addAction(actionQuit);
 
         retranslateUi(MainWindow);
@@ -192,6 +196,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "WAM: WoW Addon Manager", nullptr));
         actionQuit->setText(QCoreApplication::translate("MainWindow", "Quit", nullptr));
+        actionUploadAddon->setText(QCoreApplication::translate("MainWindow", "Upload Addon", nullptr));
         QTableWidgetItem *___qtablewidgetitem = classic_table->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = classic_table->horizontalHeaderItem(1);

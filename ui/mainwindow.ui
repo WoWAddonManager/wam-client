@@ -215,13 +215,14 @@
      <x>0</x>
      <y>0</y>
      <width>813</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionUploadAddon"/>
     <addaction name="actionQuit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -229,6 +230,11 @@
   <action name="actionQuit">
    <property name="text">
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionUploadAddon">
+   <property name="text">
+    <string>Upload Addon</string>
    </property>
   </action>
  </widget>
