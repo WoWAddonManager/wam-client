@@ -36,6 +36,5 @@ target_link_libraries(wam
     Boost::filesystem
     LibtorrentRasterbar::torrent-rasterbar
     Qt5::Widgets
-    ${Jsoncpp_LIBRARY}
 )
 
