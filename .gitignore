@@ -1,4 +1,3 @@
-.idea/
+.idea/include/dbconfig.h
 .vscode/
 *build*/
-include/dbconfig.h

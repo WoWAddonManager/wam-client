@@ -13,13 +13,13 @@ class MainWindow : public QMainWindow
 Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent, SettingsManager *settings);
+    MainWindow(QWidget *parent, SettingsManager &settings);
     void fill_in_settings(const SettingsManager &settings);
-    ~MainWindow();
-    void swap_addon_list(const QString &version);
+    ~MainWindow() override;
+
 private:
+    void swap_addon_list(const QString &version);
     Ui::MainWindow *ui;
-    SettingsManager *settings;
 };
 
 #endif // MAINWINDOW_H

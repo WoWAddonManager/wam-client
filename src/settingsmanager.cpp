@@ -26,14 +26,7 @@ SettingsManager::SettingsManager() {
     if (boost::filesystem::exists("settings.json")) {
         if (!boost::filesystem::is_empty("settings.json")) {
             std::string content = utils::read_file_to_string("settings.json");
-            Json::CharReaderBuilder builder;
-            Json::CharReader *reader = builder.newCharReader();
-            std::string errors;
-            bool parsed = reader->parse(content.c_str(), content.c_str() + content.size(), &this->settings_root,
-                                        &errors);
-            if (!parsed) {
-                std::cout << errors << std::endl;
-            }
+            this->settings_root = utils::string_to_json(content);
             this->m_base_wow_folder_path = this->settings_root["wow_path"].asString();
             this->first_time = this->settings_root["first_time"].asBool();
             this->set_wow_folder_paths();

@@ -11,7 +11,7 @@ class upload_addon_dialog : public QDialog{
 
 public:
     explicit upload_addon_dialog(QWidget *parent = nullptr);
-    void upload_addon(Addon addon);
+
     ~upload_addon_dialog() override ;
 
 private:

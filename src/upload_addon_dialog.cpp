@@ -9,10 +9,11 @@ upload_addon_dialog::upload_addon_dialog(QWidget *parent): QDialog(parent), dial
 
     connect(dialog->browse_addon_folder_button, &QPushButton::clicked, [&]() {
         auto folder_path = QFileDialog::getExistingDirectory();
+        dialog->addon_path->setText(folder_path);
         std::cout << folder_path.toStdString() << std::endl;
     });
 }
 
 upload_addon_dialog::~upload_addon_dialog() {
-    delete(this);
+    delete(dialog);
 }

@@ -246,12 +246,10 @@ template <typename Iter> Iter fixZerosInTheEnd(Iter begin, Iter end) {
 #endif // if !defined(JSON_IS_AMALGAMATION)
 #include <cassert>
 #include <cstring>
-#include <iostream>
 #include <istream>
 #include <limits>
 #include <memory>
 #include <set>
-#include <sstream>
 #include <utility>
 
 #include <cstdio>
@@ -2401,11 +2399,7 @@ ValueIterator& ValueIterator::operator=(const SelfType& other) {
 #include <json/value.h>
 #include <json/writer.h>
 #endif // if !defined(JSON_IS_AMALGAMATION)
-#include <cassert>
 #include <cmath>
-#include <cstring>
-#include <sstream>
-#include <utility>
 #ifdef JSON_USE_CPPTL
 #include <cpptl/conststring.h>
 #endif
@@ -4108,17 +4102,8 @@ Value& Path::make(Value& root) const {
 #include "json_tool.h"
 #include <json/writer.h>
 #endif // if !defined(JSON_IS_AMALGAMATION)
-#include <cassert>
-#include <cstring>
-#include <iomanip>
-#include <memory>
-#include <set>
-#include <sstream>
-#include <utility>
 
 #if __cplusplus >= 201103L
-#include <cmath>
-#include <cstdio>
 
 #if !defined(isnan)
 #define isnan std::isnan
