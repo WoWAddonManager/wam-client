@@ -6,15 +6,14 @@
 #include "addon.h"
 #include "settingsmanager.h"
 #include "upload_addon_dialog.h"
-MainWindow::MainWindow(QWidget *parent, SettingsManager *settings) :
+MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
 
-    auto* dialog = new upload_addon_dialog(this);
+    auto dialog = std::make_shared<upload_addon_dialog>(this);
 
 
 
-    this->settings = settings;
     ui->setupUi(this);
     ui->classic_table->hide();
     ui->ptr_table->hide();
@@ -30,16 +29,11 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager *settings) :
 
     ui->tabWidget->setCurrentIndex(0);
 
-    // Add items to combo box
-    ui->wow_version_combo_box->addItem(QString("Retail"));
-    ui->wow_version_combo_box->addItem(QString("Classic"));
-    ui->wow_version_combo_box->addItem(QString("PTR"));
-
-    connect(ui->set_wow_path_btn, &QPushButton::clicked, [=]() {
+    connect(ui->set_wow_path_btn, &QPushButton::clicked, [&]() {
         QString file_path = QFileDialog::getExistingDirectory(this, "Select WoW Folder");
-        settings->set_base_wow_path(file_path.toStdString());
-        settings->set_wow_folder_paths();
-        ui->lineEdit->setText(QString::fromStdString(settings->get_base_wow_path()));
+        settings.set_base_wow_path(file_path.toStdString());
+        settings.set_wow_folder_paths();
+        ui->lineEdit->setText(QString::fromStdString(settings.get_base_wow_path()));
     });
 
     connect(ui->wow_version_combo_box,  static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), [this](const QString& tab) {
@@ -53,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager *settings) :
     });
 
 
-    fill_in_settings(*settings);
+    fill_in_settings(settings);
 
 }
 
