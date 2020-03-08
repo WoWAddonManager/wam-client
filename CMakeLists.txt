@@ -26,7 +26,7 @@ include_directories("include/" "include/json")
 
 set_target_properties(Qt5::Core PROPERTIES MAP_IMPORTED_CONFIG_COVERAGE "RELEASE")
 
-add_executable(wam ${SOURCE_FILES} ${UI_FILES})
+add_executable(wam ${SOURCE_FILES})
 
 target_include_directories(wam PRIVATE include ${Boost_INCLUDE_DIR} )
 target_link_libraries(wam
@@ -37,4 +37,3 @@ target_link_libraries(wam
     LibtorrentRasterbar::torrent-rasterbar
     Qt5::Widgets
 )
-
