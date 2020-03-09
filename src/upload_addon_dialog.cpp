@@ -14,6 +14,5 @@ upload_addon_dialog::upload_addon_dialog(QWidget *parent): QDialog(parent), dial
     });
 }
 
-upload_addon_dialog::~upload_addon_dialog() {
-    delete(dialog);
-}
+upload_addon_dialog::~upload_addon_dialog() = default;
+

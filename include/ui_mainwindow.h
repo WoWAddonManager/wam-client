@@ -117,6 +117,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
         ptr_table->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         ptr_table->setObjectName(QString::fromUtf8("ptr_table"));
+        ptr_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         gridLayout_3->addWidget(ptr_table, 1, 0, 1, 3);
 
@@ -135,6 +136,7 @@ public:
         classic_table->setHorizontalHeaderItem(4, __qtablewidgetitem9);
         classic_table->setObjectName(QString::fromUtf8("classic_table"));
         classic_table->setEnabled(true);
+        classic_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         gridLayout_3->addWidget(classic_table, 2, 0, 1, 3);
 
@@ -152,6 +154,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
         retail_table->setHorizontalHeaderItem(4, __qtablewidgetitem14);
         retail_table->setObjectName(QString::fromUtf8("retail_table"));
+        retail_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         gridLayout_3->addWidget(retail_table, 3, 0, 1, 3);
 
@@ -250,7 +253,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 813, 20));
+        menuBar->setGeometry(QRect(0, 0, 813, 24));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         MainWindow->setMenuBar(menuBar);

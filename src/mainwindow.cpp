@@ -3,14 +3,13 @@
 #include <QFileDialog>
 #include <QtCore/QStringListModel>
 #include <QtWidgets/QPushButton>
+#include <utils.h>
 #include "addon.h"
 #include "settingsmanager.h"
 #include "upload_addon_dialog.h"
 MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
-
-    auto dialog = std::make_shared<upload_addon_dialog>(this);
 
 
 
@@ -29,6 +28,14 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
 
     ui->tabWidget->setCurrentIndex(0);
 
+    ui->retail_table->setItem(0,0,new QTableWidgetItem("Hello World!"));
+    auto addons = Addon::get_remote_addons("");
+    ui->retail_table->setRowCount(addons.size());
+    for(int i = 0; i < addons.size(); i++){
+        auto addon = addons.at(i);
+        ui->retail_table->setItem(i,0, new QTableWidgetItem(addon.m_addonName.c_str()));
+    }
+
     connect(ui->set_wow_path_btn, &QPushButton::clicked, [&]() {
         QString file_path = QFileDialog::getExistingDirectory(this, "Select WoW Folder");
         settings.set_base_wow_path(file_path.toStdString());
@@ -42,8 +49,9 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
     connect(ui->actionQuit, &QAction::triggered, [&]() {
         exit(0);
     });
-    connect(ui->actionUploadAddon, &QAction::triggered, [dialog]() {
-        dialog->show();
+    connect(ui->actionUploadAddon, &QAction::triggered, [&]() {
+        auto dialog = upload_addon_dialog(this);
+        dialog.show();
     });
 
 
@@ -51,9 +59,6 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
 
 }
 
-MainWindow::~MainWindow() {
-    delete ui;
-}
 
 void MainWindow::swap_addon_list(const QString &version){
     if(version == "Retail"){
@@ -76,3 +81,5 @@ void MainWindow::swap_addon_list(const QString &version){
 void MainWindow::fill_in_settings(const SettingsManager &p_settings) {
     ui->lineEdit->setText(QString::fromStdString(p_settings.get_base_wow_path()));
 }
+
+MainWindow::~MainWindow() = default;
