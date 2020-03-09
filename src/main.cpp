@@ -11,11 +11,7 @@ int main(int argc, char *argv[]) {
     SettingsManager settings{};
     MainWindow window{nullptr, settings};
 
-    auto addons = Addon::get_remote_addons("");
 
-    for(const auto &addon : addons){
-        std::cout << addon;
-    }
 
     window.show();
     return QApplication::exec();
