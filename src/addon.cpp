@@ -6,8 +6,10 @@
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range_core.hpp>
 #include <boost/archive/binary_oarchive.hpp>
+#include <libtorrent/file_storage.hpp>
 #include "addon.h"
 #include "utils.h"
+#include "httplib.h"
 
 
 
@@ -15,18 +17,24 @@ std::shared_ptr<Addon> Addon::create_addon(const std::string &p_addon_folder_pat
     return std::make_shared<Addon>(Addon());
 }
 
-Addon::Addon(const std::string &p_addon_name, const std::string &p_addon_version,
+Addon::Addon(const int64_t &p_id, const std::string &p_addon_name, const std::string &p_addon_version,
              const std::string &p_interface_version, const std::string &p_addon_note,
              const WoWVersion &p_wow_version) {
     this->m_addonName = p_addon_name;
     this->m_interface_version = p_interface_version;
-    this->m_note = p_addon_note;
+    this->m_description = p_addon_note;
     this->m_addon_version = p_addon_version;
     this->m_wow_version = p_wow_version;
 
 }
 
-std::shared_ptr<std::vector<Addon>> Addon::get_installed_adddons(const WoWVersion &p_wow_version) {
+Addon::Addon(const Json::Value &p_addon_json) {
+    this->m_addonName = p_addon_json["name"].asString();
+    this->m_description = p_addon_json["description"].asString();
+    this->m_wow_version = WoWVersion::Retail;
+}
+
+std::vector<Addon> Addon::get_installed_adddons(const WoWVersion &p_wow_version) {
     boost::filesystem::directory_iterator dir_iter;
     switch (p_wow_version) {
         case WoWVersion::Retail:
@@ -39,7 +47,7 @@ std::shared_ptr<std::vector<Addon>> Addon::get_installed_adddons(const WoWVersio
             dir_iter = boost::filesystem::directory_iterator("./wam_files/ptr");
             break;
     }
-    auto addons = std::make_shared<std::vector<Addon>>();
+    auto addons = std::vector<Addon>{};
     auto range = boost::make_iterator_range(dir_iter, {});
     for (boost::filesystem::directory_entry &entry: range) {
         std::cout << entry.path().filename() << std::endl;
@@ -59,10 +67,25 @@ std::ostream &operator<<(std::ostream &os, const Addon &addon) {
     std::stringstream ss;
     ss << addon.m_addonName + "\n";
     ss << addon.m_interface_version + "\n";
-    ss << addon.m_note + "\n";
+    ss << addon.m_description + "\n";
     os << ss.str();
     return os;
 }
 
+void Addon::make_wam(const std::string &p_folder_path) {
+    lt::file_storage fs;
 
+}
+
+std::vector<Addon> Addon::get_remote_addons(const std::string &p_search_term = "") {
+    httplib::Client client("127.0.0.1", 3000);
+    std::vector<Addon> addons{};
+    auto result = client.Get("/api/addons");
+    if(result && result->status == 200) {
+        for (const Json::Value &addon : utils::string_to_json(result->body)) {
+            addons.emplace_back(addon);
+        }
+    }
+    return addons;
+}
 

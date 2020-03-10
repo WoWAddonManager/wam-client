@@ -20,26 +20,32 @@ public:
         Classic,
         PTR
     };
+    std::string id;
     std::string m_addonName;
     std::string m_addon_version;
     std::string m_interface_version;
-    std::string m_note;
+    std::string m_description;
     std::string m_path;
     std::string m_torrent_info;
     WoWVersion m_wow_version;
 
 
     static std::shared_ptr<Addon> create_addon(const std::string &p_file_path);
-    static std::shared_ptr<std::vector<Addon>> get_installed_adddons(const WoWVersion &p_wow_version);
+    static std::vector<Addon> get_installed_adddons(const WoWVersion &p_wow_version);
+    static std::vector<Addon> get_remote_addons(const std::string &p_search_term);
+
+    void make_wam(const std::string &p_folder_path);
 
     friend std::ostream& operator<<(std::ostream &output, const Addon &addon);
 
-private:
-
     Addon() = default;
-    Addon(const std::string &p_addon_name, const std::string &p_addon_version,
+
+    Addon(const int64_t &p_id, const std::string &p_addon_name, const std::string &p_addon_version,
           const std::string &p_interface_version, const std::string &p_addon_note,
           const WoWVersion &p_wow_version);
+    explicit Addon(const Json::Value &p_addon_json);
+
+private:
 
     std::string get_path() const;
     void set_path(const std::string &path);
@@ -51,9 +57,10 @@ private:
         ar & m_addonName;
         ar & m_addon_version;
         ar & m_interface_version;
-        ar & m_note;
+        ar & m_description;
         ar & m_path;
         ar & m_wow_version;
+        ar & m_torrent_info;
     }
 
 };

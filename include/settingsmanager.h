@@ -27,12 +27,6 @@ public:
     std::string get_base_wow_path() const;
     void set_base_wow_path(const std::string &path);
     std::string get_retail_addons_path() const;
-
-
-
-
-
 };
-
 
 #endif //WAM_SETTINGSMANAGER_H
