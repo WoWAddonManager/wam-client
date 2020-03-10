@@ -5,12 +5,12 @@ WAM (WoW Addon Manager) is a multiplatform peer-to-peer addon management solutio
 # Building
 
 Requirements:
-CMake 3.13
-C++20 compatible compiler
-Qt 5.14
-Boost 1.71.0
-[libtorrent 1.2.2](https://github.com/arvidn/libtorrent)
-[cpp-httplib](https://github.com/yhirose/cpp-httplib)
+CMake 3.13  
+C++20 compatible compiler  
+Qt 5.14  
+Boost 1.71.0  
+[libtorrent 1.2.2](https://github.com/arvidn/libtorrent)  
+[cpp-httplib](https://github.com/yhirose/cpp-httplib)  
 ## Windows
 I used vcpkg to get libtorrent, but used the standard Qt installer and standard boost install instructions.
 Dont forget to set `Qt5_DIR` and `Boost_ROOT` to the correct directories.
