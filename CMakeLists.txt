@@ -20,8 +20,6 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS "ui/")
 find_package(Boost 1.71.0 COMPONENTS system filesystem regex REQUIRED)
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 find_package(LibtorrentRasterbar REQUIRED)
-find_package(libmongocxx REQUIRED)
-find_package(libbsoncxx REQUIRED)
 find_package(Threads REQUIRED)
 
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "include/*.h" "include/json/*.h")
