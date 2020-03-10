@@ -11,8 +11,6 @@ int main(int argc, char *argv[]) {
     SettingsManager settings{};
     MainWindow window{nullptr, settings};
 
-
-
     window.show();
     return QApplication::exec();
 
