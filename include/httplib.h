@@ -3371,7 +3371,7 @@ inline bool Server::listen_internal() {
         break;
       }
 
-      task_queue->enqueue([=]() { process_and_close_socket(sock); });
+      task_queue->enqueue([=,this]() { process_and_close_socket(sock); });
     }
 
     task_queue->shutdown();
