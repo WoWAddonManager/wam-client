@@ -11,6 +11,7 @@
 #include <vector>
 #include <boost/serialization/access.hpp>
 #include "settingsmanager.h"
+#include "response.h"
 
 class Addon {
 public:
@@ -30,9 +31,9 @@ public:
     WoWVersion m_wow_version;
 
 
-    static std::shared_ptr<Addon> create_addon(const std::string &p_file_path);
+    static Addon create_addon(const std::string &p_addon_folder_path);
     static std::vector<Addon> get_installed_adddons(const WoWVersion &p_wow_version);
-    static std::vector<Addon> get_remote_addons(const std::string &p_search_term);
+    static Response<std::vector<Addon>> get_remote_addons(const std::string &p_search_term);
 
     void make_wam(const std::string &p_folder_path);
 

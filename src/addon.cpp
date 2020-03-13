@@ -13,8 +13,8 @@
 
 
 
-std::shared_ptr<Addon> Addon::create_addon(const std::string &p_addon_folder_path) {
-    return std::make_shared<Addon>(Addon());
+Addon Addon::create_addon(const std::string &p_addon_folder_path) {
+    return Addon{};
 }
 
 Addon::Addon(const int64_t &p_id, const std::string &p_addon_name, const std::string &p_addon_version,
@@ -77,7 +77,7 @@ void Addon::make_wam(const std::string &p_folder_path) {
 
 }
 
-std::vector<Addon> Addon::get_remote_addons(const std::string &p_search_term = "") {
+Response<std::vector<Addon>> Addon::get_remote_addons(const std::string &p_search_term = "") {
     httplib::Client client("127.0.0.1", 3000);
     std::vector<Addon> addons{};
     auto result = client.Get("/api/addons");
@@ -85,7 +85,18 @@ std::vector<Addon> Addon::get_remote_addons(const std::string &p_search_term = "
         for (const Json::Value &addon : utils::string_to_json(result->body)) {
             addons.emplace_back(addon);
         }
+        Response<std::vector<Addon>> response("200 OK", result->status, &addons);
+        return response;
     }
-    return addons;
+    else if(result && result->status == 404){
+        Response<std::vector<Addon>> response("404 Route not found", result->status, &addons);
+        return response;
+    }
+    else {
+        addons.emplace_back(Addon());
+        Response<std::vector<Addon>> response("Unhandled response", 0, &addons);
+        return response;
+    }
+
 }
 
