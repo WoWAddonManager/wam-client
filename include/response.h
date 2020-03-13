@@ -7,7 +7,6 @@
 
 #include <string>
 #include <cassert>
-#include <boost/fusion/container/vector/vector.hpp>
 
 template <class T>
 class Response {
@@ -33,10 +32,10 @@ public:
     std::string get_message() {
         return this->m_message;
     }
-
     int get_error_code() {
         return this->m_error_code;
     }
+
 
 
 
@@ -47,4 +46,6 @@ private:
 
 
 };
+
+
 #endif //WAM_RESPONSE_H
