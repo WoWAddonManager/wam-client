@@ -7,10 +7,11 @@
 #include "addon.h"
 #include "settingsmanager.h"
 #include "upload_addon_dialog.h"
+#include "response.h"
 MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
-
+    auto dialog = new upload_addon_dialog(this);
 
 
     ui->setupUi(this);
@@ -29,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
     ui->tabWidget->setCurrentIndex(0);
 
     ui->retail_table->setItem(0,0,new QTableWidgetItem("Hello World!"));
-    auto addons = Addon::get_remote_addons("");
+    auto addons =  Addon::get_remote_addons("").get_data();
     ui->retail_table->setRowCount(addons.size());
     for(int i = 0; i < addons.size(); i++){
         auto addon = addons.at(i);
@@ -49,9 +50,10 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
     connect(ui->actionQuit, &QAction::triggered, [&]() {
         exit(0);
     });
-    connect(ui->actionUploadAddon, &QAction::triggered, [&]() {
-        auto dialog = upload_addon_dialog(this);
-        dialog.show();
+
+
+    connect(ui->actionUploadAddon, &QAction::triggered, [&,dialog]() {
+        dialog->show();
     });
 
 
