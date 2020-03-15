@@ -31,6 +31,7 @@ Addon::Addon(const int64_t &p_id, const std::string &p_addon_name, const std::st
 Addon::Addon(const Json::Value &p_addon_json) {
     this->m_addonName = p_addon_json["name"].asString();
     this->m_description = p_addon_json["description"].asString();
+    this->m_addon_version = p_addon_json["version"].asString();
     this->m_wow_version = WoWVersion::Retail;
 }
 
@@ -77,26 +78,37 @@ void Addon::make_wam(const std::string &p_folder_path) {
 
 }
 
-Response<std::vector<Addon>> Addon::get_remote_addons(const std::string &p_search_term = "") {
-    httplib::Client client("127.0.0.1", 3000);
+Response<std::vector<Addon>> Addon::get_remote_addons() {
+    httplib::Client client(SettingsManager::API_IP, 3000);
     std::vector<Addon> addons{};
     auto result = client.Get("/api/addons");
     if(result && result->status == 200) {
         for (const Json::Value &addon : utils::string_to_json(result->body)) {
             addons.emplace_back(addon);
         }
-        Response<std::vector<Addon>> response("200 OK", result->status, &addons);
-        return response;
-    }
-    else if(result && result->status == 404){
-        Response<std::vector<Addon>> response("404 Route not found", result->status, &addons);
+        Response<std::vector<Addon>> response("200 OK", result->status, addons);
         return response;
     }
     else {
-        addons.emplace_back(Addon());
-        Response<std::vector<Addon>> response("Unhandled response", 0, &addons);
+        Response<std::vector<Addon>> response(result->body, result->status, addons);
         return response;
     }
 
+}
+
+Response<Addon> Addon::get_addon_by_name(const std::string &p_addon_name) {
+    httplib::Client client(SettingsManager::API_IP, 3000);
+    auto result = client.Get(std::string("/api/addons?name=" + p_addon_name).c_str());
+    if(result && result->status == 200) {
+        Json::Value root = utils::string_to_json(result->body);
+        Addon addon(root);
+        Response<Addon> response("200 OK", result->status, addon);
+        return response;
+    }
+    else {
+        Addon *addon = nullptr;
+        Response<Addon> response(result->body, result->status, *addon);
+        return response;
+    }
 }
 
