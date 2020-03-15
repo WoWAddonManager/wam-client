@@ -14,7 +14,7 @@ public:
     ~Response() = default;
     Response() = delete;
 
-    Response(const std::string &p_message, const int &p_error_code, T *p_data) {
+    Response(const std::string &p_message, const int &p_error_code, const T &p_data) {
         this->m_message = p_message;
         this->m_error_code = p_error_code;
         this->m_data = p_data;
@@ -22,8 +22,8 @@ public:
     }
 
     T get_data(){
-        if(this->m_data)
-            return *(this->m_data);
+        if(&(this->m_data))
+            return this->m_data;
         else
             return T();
 
@@ -42,7 +42,7 @@ public:
 private:
     std::string m_message = "";
     int m_error_code = 0;
-    T *m_data;
+    T m_data;
 
 
 };
