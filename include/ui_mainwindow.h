@@ -46,10 +46,10 @@ public:
     QWidget *get_addons_tab;
     QGridLayout *gridLayout;
     QSpacerItem *horizontalSpacer;
-    QLineEdit *lineEdit_2;
+    QLineEdit *addon_search_field;
     QPushButton *pushButton;
     QComboBox *comboBox;
-    QTableWidget *tableWidget;
+    QTableWidget *get_addons_table;
     QLabel *label_3;
     QLabel *label_2;
     QWidget *settings_tab;
@@ -117,7 +117,6 @@ public:
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
         ptr_table->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         ptr_table->setObjectName(QString::fromUtf8("ptr_table"));
-        ptr_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         gridLayout_3->addWidget(ptr_table, 1, 0, 1, 3);
 
@@ -136,7 +135,6 @@ public:
         classic_table->setHorizontalHeaderItem(4, __qtablewidgetitem9);
         classic_table->setObjectName(QString::fromUtf8("classic_table"));
         classic_table->setEnabled(true);
-        classic_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         gridLayout_3->addWidget(classic_table, 2, 0, 1, 3);
 
@@ -154,7 +152,6 @@ public:
         QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
         retail_table->setHorizontalHeaderItem(4, __qtablewidgetitem14);
         retail_table->setObjectName(QString::fromUtf8("retail_table"));
-        retail_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         gridLayout_3->addWidget(retail_table, 3, 0, 1, 3);
 
@@ -167,12 +164,12 @@ public:
 
         gridLayout->addItem(horizontalSpacer, 1, 5, 1, 1);
 
-        lineEdit_2 = new QLineEdit(get_addons_tab);
-        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
-        sizePolicy.setHeightForWidth(lineEdit_2->sizePolicy().hasHeightForWidth());
-        lineEdit_2->setSizePolicy(sizePolicy);
+        addon_search_field = new QLineEdit(get_addons_tab);
+        addon_search_field->setObjectName(QString::fromUtf8("addon_search_field"));
+        sizePolicy.setHeightForWidth(addon_search_field->sizePolicy().hasHeightForWidth());
+        addon_search_field->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(lineEdit_2, 1, 1, 1, 1);
+        gridLayout->addWidget(addon_search_field, 1, 1, 1, 1);
 
         pushButton = new QPushButton(get_addons_tab);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
@@ -193,22 +190,23 @@ public:
 
         gridLayout->addWidget(comboBox, 1, 3, 1, 1);
 
-        tableWidget = new QTableWidget(get_addons_tab);
-        if (tableWidget->columnCount() < 5)
-            tableWidget->setColumnCount(5);
+        get_addons_table = new QTableWidget(get_addons_tab);
+        if (get_addons_table->columnCount() < 5)
+            get_addons_table->setColumnCount(5);
         QTableWidgetItem *__qtablewidgetitem15 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem15);
+        get_addons_table->setHorizontalHeaderItem(0, __qtablewidgetitem15);
         QTableWidgetItem *__qtablewidgetitem16 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem16);
+        get_addons_table->setHorizontalHeaderItem(1, __qtablewidgetitem16);
         QTableWidgetItem *__qtablewidgetitem17 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem17);
+        get_addons_table->setHorizontalHeaderItem(2, __qtablewidgetitem17);
         QTableWidgetItem *__qtablewidgetitem18 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem18);
+        get_addons_table->setHorizontalHeaderItem(3, __qtablewidgetitem18);
         QTableWidgetItem *__qtablewidgetitem19 = new QTableWidgetItem();
-        tableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem19);
-        tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
+        get_addons_table->setHorizontalHeaderItem(4, __qtablewidgetitem19);
+        get_addons_table->setObjectName(QString::fromUtf8("get_addons_table"));
+        get_addons_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-        gridLayout->addWidget(tableWidget, 2, 0, 1, 8);
+        gridLayout->addWidget(get_addons_table, 2, 0, 1, 8);
 
         label_3 = new QLabel(get_addons_tab);
         label_3->setObjectName(QString::fromUtf8("label_3"));
@@ -264,7 +262,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -311,13 +309,13 @@ public:
         comboBox->setItemText(1, QCoreApplication::translate("MainWindow", "Classic", nullptr));
         comboBox->setItemText(2, QCoreApplication::translate("MainWindow", "PTR", nullptr));
 
-        QTableWidgetItem *___qtablewidgetitem12 = tableWidget->horizontalHeaderItem(0);
+        QTableWidgetItem *___qtablewidgetitem12 = get_addons_table->horizontalHeaderItem(0);
         ___qtablewidgetitem12->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
-        QTableWidgetItem *___qtablewidgetitem13 = tableWidget->horizontalHeaderItem(1);
+        QTableWidgetItem *___qtablewidgetitem13 = get_addons_table->horizontalHeaderItem(1);
         ___qtablewidgetitem13->setText(QCoreApplication::translate("MainWindow", "Version", nullptr));
-        QTableWidgetItem *___qtablewidgetitem14 = tableWidget->horizontalHeaderItem(2);
-        ___qtablewidgetitem14->setText(QCoreApplication::translate("MainWindow", "Authors", nullptr));
-        QTableWidgetItem *___qtablewidgetitem15 = tableWidget->horizontalHeaderItem(3);
+        QTableWidgetItem *___qtablewidgetitem14 = get_addons_table->horizontalHeaderItem(2);
+        ___qtablewidgetitem14->setText(QCoreApplication::translate("MainWindow", "Maintainers", nullptr));
+        QTableWidgetItem *___qtablewidgetitem15 = get_addons_table->horizontalHeaderItem(3);
         ___qtablewidgetitem15->setText(QCoreApplication::translate("MainWindow", "Description", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Search", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "WoW Version", nullptr));
