@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
     ui->tabWidget->setCurrentIndex(0);
 
     ui->retail_table->setItem(0,0,new QTableWidgetItem("Hello World!"));
-    auto addons =  Addon::get_remote_addons("").get_data();
+    auto addons = Addon::get_remote_addons().get_data();
     ui->retail_table->setRowCount(addons.size());
     for(int i = 0; i < addons.size(); i++){
         auto addon = addons.at(i);
@@ -54,6 +54,30 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
 
     connect(ui->actionUploadAddon, &QAction::triggered, [&,dialog]() {
         dialog->show();
+    });
+
+    connect(ui->addon_search_field, &QLineEdit::returnPressed, [&, this]() {
+        auto result = Addon::get_addon_by_name(ui->addon_search_field->text().toStdString());
+        if(result.get_error_code() == 200) {
+            auto addon = result.get_data();
+            auto get_addons_table = ui->get_addons_table;
+            get_addons_table->setRowCount(1);
+            get_addons_table->setItem(0,0,new QTableWidgetItem(QString::fromStdString(addon.m_addonName)));
+            get_addons_table->setItem(0,1,new QTableWidgetItem(QString::fromStdString(addon.m_addon_version)));
+            get_addons_table->setItem(0,3,new QTableWidgetItem(QString::fromStdString(addon.m_description)));
+            auto *widget = new QWidget();
+            auto *install_button = new QPushButton();
+            install_button->setText("Install");
+            auto *layout = new QHBoxLayout(widget);
+            layout->addWidget(install_button);
+            layout->setAlignment(Qt::AlignCenter);
+            layout->setContentsMargins(0,0,0,0);
+            widget->setLayout(layout);
+            get_addons_table->setCellWidget(0,4, widget);
+            connect(install_button, &QPushButton::clicked, [&, addon](){
+                std::cout << "installing: " << addon;
+            });
+        }
     });
 
 
