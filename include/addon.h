@@ -33,8 +33,8 @@ public:
 
     static Addon create_addon(const std::string &p_addon_folder_path);
     static std::vector<Addon> get_installed_adddons(const WoWVersion &p_wow_version);
-    static Response<std::vector<Addon>> get_remote_addons(const std::string &p_search_term);
-
+    static Response<std::vector<Addon>> get_remote_addons();
+    static Response<Addon> get_addon_by_name(const std::string &p_addon_name);
     void make_wam(const std::string &p_folder_path);
 
     friend std::ostream& operator<<(std::ostream &output, const Addon &addon);
