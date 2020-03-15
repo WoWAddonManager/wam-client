@@ -12,6 +12,8 @@
 #include "mainwindow.h"
 
 
+const std::string SettingsManager::API_IP = "127.0.0.1";
+
 void SettingsManager::set_wow_folder_paths() {
     auto file = std::fstream("settings.json");
     this->settings_root["wow_path"] = this->get_base_wow_path();

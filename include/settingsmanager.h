@@ -21,6 +21,9 @@ private:
 
     bool first_time = true;
 public:
+
+    const static std::string API_IP;
+
     SettingsManager();
     Json::Value settings_root;
     void set_wow_folder_paths();
