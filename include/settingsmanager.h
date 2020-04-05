@@ -10,7 +10,7 @@
 #include <string>
 #include <json/json.h>
 #include <sstream>
-
+#include "httplib.h"
 class SettingsManager {
 private:
 
@@ -19,10 +19,13 @@ private:
     std::string m_classic_addons_path;
     std::string m_ptr_addons_path;
 
+    void generate_settings_file();
+    static void generate_folder_structure();
     bool first_time = true;
 public:
 
-    const static std::string API_IP;
+    static constexpr char API_IP[] = "127.0.0.1";
+    static constexpr int API_PORT = 3000;
 
     SettingsManager();
     Json::Value settings_root;

@@ -12,7 +12,6 @@
 #include "mainwindow.h"
 
 
-const std::string SettingsManager::API_IP = "127.0.0.1";
 
 void SettingsManager::set_wow_folder_paths() {
     auto file = std::fstream("settings.json");
@@ -25,35 +24,8 @@ void SettingsManager::set_wow_folder_paths() {
 }
 
 SettingsManager::SettingsManager() {
-    if (boost::filesystem::exists("settings.json")) {
-        if (!boost::filesystem::is_empty("settings.json")) {
-            std::string content = utils::read_file_to_string("settings.json");
-            this->settings_root = utils::string_to_json(content);
-            this->m_base_wow_folder_path = this->settings_root["wow_path"].asString();
-            this->first_time = this->settings_root["first_time"].asBool();
-            this->set_wow_folder_paths();
-        }
-        else {
-            this->settings_root["wow_path"] = "";
-            this->settings_root["first_time"] = true;
-            auto file = std::ofstream("settings.json");
-            file << this->settings_root;
-        }
-    }
-    else {
-        auto file = std::ofstream("settings.json");
-        this->settings_root["wow_path"] = "";
-        this->settings_root["first_time"] = true;
-        file << this->settings_root;
-
-    }
-
-    if(!boost::filesystem::exists("wam_files")){
-        boost::filesystem::create_directories("wam_files");
-        boost::filesystem::create_directories("wam_files/retail");
-        boost::filesystem::create_directories("wam_files/classic");
-        boost::filesystem::create_directories("wam_files/ptr");
-    }
+    generate_settings_file();
+    generate_folder_structure();
 }
 
 std::string SettingsManager::get_retail_addons_path() const {
@@ -66,4 +38,37 @@ std::string SettingsManager::get_base_wow_path() const {
 
 void SettingsManager::set_base_wow_path(const std::string &path) {
     this->m_base_wow_folder_path = path;
+}
+
+void SettingsManager::generate_settings_file() {
+    if (boost::filesystem::exists("settings.json")) {
+        if (boost::filesystem::is_empty("settings.json")) {
+            this->settings_root["wow_path"] = "";
+            this->settings_root["first_time"] = true;
+            auto file = std::ofstream("settings.json");
+            file << this->settings_root;
+        }
+        else {
+            std::string content = read_file_to_string("settings.json");
+            this->settings_root = string_to_json(content);
+            this->m_base_wow_folder_path = this->settings_root["wow_path"].asString();
+            this->first_time = this->settings_root["first_time"].asBool();
+            this->set_wow_folder_paths();
+
+        }
+    }
+    else {
+        auto file = std::ofstream("settings.json");
+        this->settings_root["wow_path"] = "";
+        this->settings_root["first_time"] = true;
+        file << this->settings_root;
+
+    }
+}
+
+void SettingsManager::generate_folder_structure() {
+    boost::filesystem::create_directories("wam_files");
+    boost::filesystem::create_directories("wam_files/retail");
+    boost::filesystem::create_directories("wam_files/classic");
+    boost::filesystem::create_directories("wam_files/ptr");
 }

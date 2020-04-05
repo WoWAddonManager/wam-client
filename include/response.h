@@ -6,7 +6,7 @@
 #define WAM_RESPONSE_H
 
 #include <string>
-#include <cassert>
+#include <boost/optional.hpp>
 
 template <class T>
 class Response {
@@ -14,18 +14,18 @@ public:
     ~Response() = default;
     Response() = delete;
 
-    Response(const std::string &p_message, const int &p_error_code, const T &p_data) {
+    Response(const std::string &p_message, const int &p_error_code, const boost::optional<T> &p_data) {
         this->m_message = p_message;
         this->m_error_code = p_error_code;
         this->m_data = p_data;
 
     }
 
-    T get_data(){
-        if(&(this->m_data))
-            return this->m_data;
+    boost::optional<T> get_data(){
+        if(this->m_data != boost::none)
+            return boost::optional<T>{this->m_data};
         else
-            return T();
+            return boost::none;
 
     }
 
@@ -42,7 +42,7 @@ public:
 private:
     std::string m_message = "";
     int m_error_code = 0;
-    T m_data;
+    boost::optional<T> m_data;
 
 
 };
