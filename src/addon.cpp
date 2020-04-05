@@ -104,7 +104,6 @@ Response<std::vector<Addon>> Addon::get_remote_addons() {
         Response<std::vector<Addon>> response(result->body, result->status, boost::none);
         return response;
     }
-
 }
 
 Response<Addon> Addon::get_addon_by_name(const std::string &addon_name) {

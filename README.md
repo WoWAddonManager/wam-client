@@ -1,4 +1,9 @@
 # WoW Addon Manager
+| Platform | Master | Dev |
+| -------- | ------ | --- |
+| Windows  | [![Build status](https://ci.appveyor.com/api/projects/status/eat30wg7qk4nnqd5/branch/dev?svg=true)](https://ci.appveyor.com/project/jorbo/wam-client-windows/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/eat30wg7qk4nnqd5/branch/dev?svg=true)](https://ci.appveyor.com/project/jorbo/wam-client-windows/branch/dev) |
+| Linux | [![Build status](https://ci.appveyor.com/api/projects/status/xsq7i86cqwmbb768/branch/dev?svg=true)](https://ci.appveyor.com/project/jorbo/wam-client-linux/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/xsq7i86cqwmbb768/branch/dev?svg=true)](https://ci.appveyor.com/project/jorbo/wam-client-linux/branch/dev) |
+| Mac | N/A | N/A
 
 WAM (WoW Addon Manager) is a multiplatform peer-to-peer addon management solution for managing Addons for MMORPG World of Warcraft.
 
@@ -8,7 +13,7 @@ Requirements:
 CMake 3.13  
 C++20 compatible compiler  
 Qt 5.14  
-Boost 1.71.0  
+Boost 1.70.0  
 [libtorrent 1.2.2](https://github.com/arvidn/libtorrent)  
 [cpp-httplib](https://github.com/yhirose/cpp-httplib)  
 ## Windows
@@ -29,14 +34,38 @@ C:\path\to\Qt\5.14.0\msvc2017_64\bin\windeployqt.exe wam.exe
 Use your favorite AUR helper to get `libiconv` or install with makepkg
 
 **Ubuntu**
-`sudo apt-get install build-essential cmake`
-Follow the standard Boost, QT, and libtorrent install instructions.
-Ubuntu doesnt new enough versions available in `apt`
+  #### Setup
+  ```sh
+  sudo add-apt-repository ppa:mhier/libboost-latest
+  sudo apt-get update
+  sudo apt-get upgrade
+  sudo apt-get install libboost1.70-dev build-essential qt5-default
+  ```
+  #### Install newer CMake
+  ```sh
 
-### Building
-```sh
-mkdir build
-cd build
-cmake ../ -DCMAKE_BUILD_TYPE=Release
-make -j$(nproc)
-```
+  wget https://github.com/Kitware/CMake/releases/download/v3.17.0-rc3/cmake-3.17.0-rc3-Linux-x86_64.sh
+  chmod +x cmake-3.17.0-rc3-Linux-x86_64.sh
+  sudo ./cmake-3.17.0-rc3-Linux-x86_64.sh --skip-license
+  ```
+
+  #### Build and install newer libtorrent
+  ```sh
+
+  git clone https://github.com/arvidn/libtorrent.git
+  cd libtorrent
+  mkdir -p build
+  cd build
+  cmake ../ -DCMAKE_BUILD_TYPE=Release
+  make -j$(nproc)
+  sudo make install
+  cd ../../
+  ```
+
+  #### Building
+  ```sh
+  mkdir build
+  cd build
+  cmake ../ -DCMAKE_BUILD_TYPE=Release
+  make -j$(nproc)
+  ```
