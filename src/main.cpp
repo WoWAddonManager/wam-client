@@ -5,13 +5,16 @@
 #include "upload_addon_dialog.h"
 #include "settingsmanager.h"
 #include "addon.h"
-
+#include "login_dialog.h"
 int main(int argc, char *argv[]) {
-    QApplication wam{argc, argv};
-    SettingsManager settings{};
-    MainWindow window{nullptr, settings};
+    QApplication wam(argc, argv);
+    SettingsManager settings;
+    login_dialog login;
+//    MainWindow window(nullptr, settings);
 
-    window.show();
+
+
+
     return QApplication::exec();
 
 }
