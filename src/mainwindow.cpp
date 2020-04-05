@@ -8,6 +8,8 @@
 #include "settingsmanager.h"
 #include "upload_addon_dialog.h"
 #include "response.h"
+#include <boost/optional/optional_io.hpp>
+#include <QMessageBox>
 MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -31,11 +33,14 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
 
     ui->retail_table->setItem(0,0,new QTableWidgetItem("Hello World!"));
     auto addons = Addon::get_remote_addons().get_data();
-    ui->retail_table->setRowCount(addons.size());
-    for(int i = 0; i < addons.size(); i++){
-        auto addon = addons.at(i);
-        ui->retail_table->setItem(i,0, new QTableWidgetItem(addon.m_addonName.c_str()));
+    if(addons != boost::none) {
+        ui->retail_table->setRowCount(addons->size());
+        for (int i = 0; i < addons->size(); i++) {
+            auto addon = addons->at(i);
+            ui->retail_table->setItem(i, 0, new QTableWidgetItem(addon.m_addonName.c_str()));
+        }
     }
+
 
     connect(ui->set_wow_path_btn, &QPushButton::clicked, [&]() {
         QString file_path = QFileDialog::getExistingDirectory(this, "Select WoW Folder");
@@ -58,13 +63,14 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
 
     connect(ui->addon_search_field, &QLineEdit::returnPressed, [&, this]() {
         auto result = Addon::get_addon_by_name(ui->addon_search_field->text().toStdString());
+
         if(result.get_error_code() == 200) {
             auto addon = result.get_data();
             auto get_addons_table = ui->get_addons_table;
             get_addons_table->setRowCount(1);
-            get_addons_table->setItem(0,0,new QTableWidgetItem(QString::fromStdString(addon.m_addonName)));
-            get_addons_table->setItem(0,1,new QTableWidgetItem(QString::fromStdString(addon.m_addon_version)));
-            get_addons_table->setItem(0,3,new QTableWidgetItem(QString::fromStdString(addon.m_description)));
+            get_addons_table->setItem(0,0,new QTableWidgetItem(QString::fromStdString(addon->m_addonName)));
+            get_addons_table->setItem(0,1,new QTableWidgetItem(QString::fromStdString(addon->m_addon_version)));
+            get_addons_table->setItem(0,3,new QTableWidgetItem(QString::fromStdString(addon->m_description)));
             auto *widget = new QWidget();
             auto *install_button = new QPushButton();
             install_button->setText("Install");
@@ -75,8 +81,14 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
             widget->setLayout(layout);
             get_addons_table->setCellWidget(0,4, widget);
             connect(install_button, &QPushButton::clicked, [&, addon](){
-                std::cout << "installing: " << addon;
+                std::cout << "Instaling: " << addon;
             });
+        }
+        else if (result.get_error_code() == 404) {
+            make_message_box("No Addon found!");
+        }
+        else {
+            make_message_box("Woah something went wrong?");
         }
     });
 
