@@ -1,4 +1,3 @@
-#include <QNetworkAccessManager>
 #include "response.h"
 #include "utils.h"
 #include "user.h"
