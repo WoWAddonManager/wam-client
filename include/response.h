@@ -7,7 +7,7 @@
 
 #include <string>
 #include <boost/optional.hpp>
-
+#include <iostream>
 template <class T>
 class Response {
 public:
@@ -36,6 +36,11 @@ public:
         return this->m_error_code;
     }
 
+    friend std::ostream &operator<<(std::ostream &os, const Response<T> response){
+        os << std::string("Message: ") << response.m_message << std::endl;
+        os << std::string("Status: ") << response.m_error_code << std::endl;
+        return os;
+    }
 
 
 
