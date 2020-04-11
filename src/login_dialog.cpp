@@ -5,6 +5,7 @@
 #include "user.h"
 #include "mainwindow.h"
 #include "settingsmanager.h"
+#include "signup_dialog.h"
 login_dialog::login_dialog(QWidget *parent) : QDialog(parent), dialog(new Ui::login_dialog){
     dialog->setupUi(this);
     this->show();
@@ -21,11 +22,17 @@ login_dialog::login_dialog(QWidget *parent) : QDialog(parent), dialog(new Ui::lo
             this->close();
             std::cout << user << std::endl;
         }
-        else if(response.get_error_code() == 404){
+        else {
             std::cout << response.get_message() << std::endl;
         }
 
 
+    });
+
+    connect(dialog->pushButton_2, &QPushButton::clicked, [this]{
+        this->hide();
+        signup_dialog signup_dialog;
+        signup_dialog.exec();
     });
 
 }
