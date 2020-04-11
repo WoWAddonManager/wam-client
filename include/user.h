@@ -7,12 +7,12 @@
 class User {
 public:
     static Response<User> login(const std::string &email, const std::string &password);
-    static Response<User> login(const std::string &token);
-    static Response<bool> validate();
+    static Response<User> signup(const std::string &username, const std::string &email, const std::string &password, const std::string &password_confirmation);
+    Response<bool> validate();
 
-    std::string get_display_name() const;
-    std::string get_account_id() const;
-    std::string get_email() const;
+    [[nodiscard]] std::string get_display_name() const;
+    [[nodiscard]] std::string get_account_id() const;
+    [[nodiscard]] std::string get_email() const;
 
     friend std::ostream &operator<<(std::ostream &os, const User &user);
 
