@@ -66,3 +66,22 @@ std::ostream &operator<<(std::ostream &os, const User &user) {
     return os;
 }
 
+User::User(const std::string &account_id, const std::string &display_name, const std::string &token,
+           const std::string &client_id,
+           const std::string &email) {
+    this->m_account_id = account_id;
+    this->m_display_name = display_name;
+    this->m_token = token;
+    this->m_client_id = client_id;
+    this->m_email = email;
+
+}
+
+User::User(const Json::Value &json) {
+    this->m_account_id = json["uid"].asString();
+    this->m_display_name = json["nickname"].asString();
+    this->m_token = json["access-token"].asString();
+    this->m_client_id = json["client"].asString();
+    this->m_email = json["email"].asString();
+}
+
