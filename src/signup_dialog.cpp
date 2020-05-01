@@ -39,13 +39,18 @@ signup_dialog::signup_dialog(QWidget *parent): QDialog(parent), dialog(new Ui::s
             else
                 dialog->confirm_password_error_label->setText("");
 
-        } else {
-            SettingsManager sm;
-            MainWindow mw(nullptr, sm);
+        }
+        else {
+            MainWindow mw(nullptr);
             this->close();
             mw.show();
         }
 
         std::cout << response;
+    });
+    connect(dialog->login_button, &QPushButton::clicked, [this] {
+        this->close();
+        login_dialog login_dialog;
+        login_dialog.exec();
     });
 }
