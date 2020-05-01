@@ -244,12 +244,6 @@
   <zorder>username</zorder>
   <zorder>password_confirmation</zorder>
   <zorder>email</zorder>
-  <zorder>gridLayoutWidget</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
-  <zorder>horizontalLayoutWidget_2</zorder>
-  <zorder>horizontalLayoutWidget_3</zorder>
-  <zorder>horizontalLayoutWidget_4</zorder>
-  <zorder>verticalLayoutWidget</zorder>
  </widget>
  <tabstops>
   <tabstop>username</tabstop>
