@@ -13,7 +13,7 @@ class MainWindow : public QMainWindow
 Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent, SettingsManager &settings);
+    explicit MainWindow(QWidget *parent);
     void fill_in_settings(const SettingsManager &settings);
     ~MainWindow() override;
 

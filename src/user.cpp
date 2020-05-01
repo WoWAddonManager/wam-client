@@ -9,11 +9,11 @@ Response<User> User::login(const std::string &email, const std::string &password
     root["password"] = password;
 
     auto response = client.Post(LOGIN_AUTH_ROUTE, root.toStyledString(), "application/json");
-    if(response){
-        if(response->status == 200){
+    if (response) {
+        if (response->status == 200) {
             Json::Value json = string_to_json(response->body)["data"];
             User user;
-            user.m_account_id = json["id"].asString();
+            user.m_account_id = json["uid"].asString();
             user.m_token = response->get_header_value("access-token");
             user.m_client_id = response->get_header_value("client");
             user.m_email = json["uid"].asString();
@@ -25,7 +25,10 @@ Response<User> User::login(const std::string &email, const std::string &password
         }
     }
     else {
-        make_message_box("Server Offline?");
+        Json::Value json;
+        json["status"] = "error";
+        json["status"]["error"] = "Api Server Offline";
+        return Response<User>(json.toStyledString());
     }
 
 }
@@ -40,7 +43,20 @@ Response<User> User::signup(const std::string &username, const std::string &emai
     root["password"] = password;
     root["password_confirmation"] = password_confirmation;
     auto response = client.Post(BASE_AUTH_ROUTE, root.toStyledString(), "application/json");
-    return Response<User>(response->body, response->status, boost::none);
+    if (response) {
+        Json::Value json;
+
+        auto body = string_to_json(response->body)["data"];
+        body["access-token"] = response->get_header_value("access-token");
+        body["client"] = response->get_header_value("client");
+        body["uid"] = response->get_header_value("uid");
+        User user(json);
+        return Response<User>(response->body, response->status, user);
+    }
+    else {
+        return Response<User>();
+    }
+
 }
 
 //! \brief Validates a user session token. true if valid, false otherwise.
