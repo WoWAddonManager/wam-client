@@ -13,19 +13,22 @@ login_dialog::login_dialog(QWidget *parent) : QDialog(parent), dialog(new Ui::lo
     connect(dialog->pushButton, &QPushButton::clicked, [&,this](){
         auto form = this->dialog;
         auto response = User::login(form->email->text().toStdString(), form->password->text().toStdString());
-
-        if(response.get_error_code() == 200){
-            auto user = response.get_data();
-            SettingsManager sm;
-            auto *window = new MainWindow(nullptr, sm);
-            window->show();
-            this->close();
-            std::cout << user << std::endl;
+        if (response.get_data() != boost::none) {
+            if (response.get_error_code() == 200) {
+                auto user = response.get_data();
+                SettingsManager sm;
+                auto *window = new MainWindow(nullptr);
+                window->show();
+                this->close();
+                std::cout << user << std::endl;
+            }
+            else {
+                std::cout << response.get_message() << std::endl;
+            }
         }
         else {
-            std::cout << response.get_message() << std::endl;
+            make_message_box("API Server Down, check back later");
         }
-
 
     });
 
