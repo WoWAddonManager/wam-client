@@ -10,11 +10,11 @@
 #include "response.h"
 #include <boost/optional/optional_io.hpp>
 #include <QMessageBox>
-MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
+MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
     auto dialog = new upload_addon_dialog(this);
-
+    SettingsManager settings;
 
     ui->setupUi(this);
     ui->classic_table->hide();
@@ -44,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent, SettingsManager &settings) :
 
     connect(ui->set_wow_path_btn, &QPushButton::clicked, [&]() {
         QString file_path = QFileDialog::getExistingDirectory(this, "Select WoW Folder");
+
         settings.set_base_wow_path(file_path.toStdString());
         settings.set_wow_folder_paths();
         ui->lineEdit->setText(QString::fromStdString(settings.get_base_wow_path()));
