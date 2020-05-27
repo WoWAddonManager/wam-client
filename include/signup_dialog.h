@@ -1,5 +1,6 @@
 #ifndef WAM_SIGNUP_DIALOG_H
 #define WAM_SIGNUP_DIALOG_H
+
 #include "ui_signup_dialog.h"
 
 namespace Ui {
