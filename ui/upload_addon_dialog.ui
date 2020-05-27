@@ -32,32 +32,20 @@
    <bool>false</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="7" colspan="2">
-    <widget class="QComboBox" name="wow_version">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_5">
      <property name="font">
       <font>
        <pointsize>9</pointsize>
       </font>
      </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="9">
-    <widget class="QTextEdit" name="addon_description_textbox">
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
+     <property name="text">
+      <string>Description</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="6">
-    <widget class="QLabel" name="label_4">
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -70,7 +58,7 @@
       </font>
      </property>
      <property name="text">
-      <string>WoW Version</string>
+      <string>Addon Name</string>
      </property>
     </widget>
    </item>
@@ -104,45 +92,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" colspan="7">
-    <widget class="QLineEdit" name="addon_path">
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Description</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Addon Name</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="4">
     <widget class="QLabel" name="label_3">
      <property name="sizePolicy">
@@ -161,18 +110,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Addon Path</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="8">
     <widget class="QPushButton" name="browse_addon_folder_button">
      <property name="font">
@@ -185,15 +122,51 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
-    <widget class="QLabel" name="label_6">
+   <item row="1" column="7" colspan="2">
+    <widget class="QComboBox" name="wow_version">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>Retail</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Classic</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>PTR</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="6">
+    <widget class="QLabel" name="label_4">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="font">
       <font>
        <pointsize>9</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>Version</string>
+      <string>WoW Version</string>
      </property>
     </widget>
    </item>
@@ -222,8 +195,60 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Addon Path</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="label_6">
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Version</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="7">
+    <widget class="QLineEdit" name="addon_path">
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="9">
+    <widget class="QTextEdit" name="addon_description_textbox">
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>addon_path</tabstop>
+  <tabstop>browse_addon_folder_button</tabstop>
+  <tabstop>addon_name</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>addon_version</tabstop>
+  <tabstop>wow_version</tabstop>
+  <tabstop>addon_description_textbox</tabstop>
+  <tabstop>upload_addon</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
