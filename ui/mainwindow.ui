@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>WAM: WoW Addon Manager</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../Nextcloud/projects/wam/resources/WAM_logo.png</normaloff>../../Nextcloud/projects/wam/resources/WAM_logo.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0">
@@ -24,45 +28,13 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="addon_tab">
        <attribute name="title">
         <string>Addons</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="1" column="0" colspan="3">
-         <widget class="QTableWidget" name="ptr_table">
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <column>
-           <property name="text">
-            <string>Name</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Version</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Peers</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Description</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string/>
-           </property>
-          </column>
-         </widget>
-        </item>
         <item row="2" column="0" colspan="3">
          <widget class="QTableWidget" name="classic_table">
           <property name="enabled">
@@ -130,6 +102,38 @@
             <string>PTR</string>
            </property>
           </item>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QTableWidget" name="ptr_table">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <column>
+           <property name="text">
+            <string>Name</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Version</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Peers</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Description</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
          </widget>
         </item>
         <item row="0" column="0">
@@ -356,14 +360,29 @@
      <height>24</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAccount">
+    <property name="title">
+     <string>Account</string>
+    </property>
+    <addaction name="actionSignUp"/>
+    <addaction name="actionLogin"/>
+    <addaction name="actionLogout"/>
+   </widget>
+   <widget class="QMenu" name="menuAddons">
+    <property name="title">
+     <string>Addons</string>
+    </property>
+    <addaction name="actionUploadAddon"/>
+   </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionUploadAddon"/>
     <addaction name="actionQuit"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuAccount"/>
+   <addaction name="menuAddons"/>
   </widget>
   <action name="actionQuit">
    <property name="text">
@@ -373,6 +392,21 @@
   <action name="actionUploadAddon">
    <property name="text">
     <string>Upload Addon</string>
+   </property>
+  </action>
+  <action name="actionLogin">
+   <property name="text">
+    <string>Login</string>
+   </property>
+  </action>
+  <action name="actionLogout">
+   <property name="text">
+    <string>Logout</string>
+   </property>
+  </action>
+  <action name="actionSignUp">
+   <property name="text">
+    <string>Sign Up</string>
    </property>
   </action>
  </widget>
