@@ -10,19 +10,28 @@
 #include <string>
 #include <json/json.h>
 #include <sstream>
+#include <QtCore/QString>
 #include "httplib.h"
+#include <spdlog/sinks/rotating_file_sink.h>
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/rotating_file_sink.h"
 class SettingsManager {
 private:
 
     bool first_time = true;
     std::string m_base_wow_folder_path;
-    std::string m_retail_addons_path;
-    std::string m_classic_addons_path;
-    std::string m_ptr_addons_path;
-    std::string m_token;
-    std::string m_client;
-    std::string m_uid;
+    std::string m_retail_addons_path = "";
+    std::string m_classic_addons_path = "";
+    std::string m_ptr_addons_path = "";
+    std::string m_token = "";
+public:
+    [[nodiscard]] const std::shared_ptr<spdlog::logger> &get_logger() const;
 
+
+private:
+    std::string m_client = "";
+    std::string m_uid = "";
+    std::shared_ptr<spdlog::logger> m_logger;
     void generate_settings_file();
 
     static void generate_folder_structure();
@@ -43,6 +52,8 @@ public:
 
     void update_uid(const std::string &uid);
 
+    void populate_settings_file();
+
     std::string get_token();
 
     std::string get_client();
@@ -57,7 +68,7 @@ public:
 
     [[nodiscard]] std::string get_base_wow_path() const;
 
-    void set_base_wow_path(const std::string &path);
+    void set_base_wow_path(const QString &path);
 
     [[nodiscard]] std::string get_retail_addons_path() const;
 };
