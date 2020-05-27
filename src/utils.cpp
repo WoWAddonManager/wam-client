@@ -1,9 +1,9 @@
-#include <fstream>
 #include <json/json.h>
 #include <iostream>
 #include <settingsmanager.h>
 #include <QtWidgets/QMessageBox>
 #include "utils.h"
+
 std::string read_file_to_string(const std::string &path) {
     std::ifstream file = std::ifstream(path, std::ios::in);
     std::stringstream ss;
@@ -12,7 +12,7 @@ std::string read_file_to_string(const std::string &path) {
     return content;
 }
 
-Json::Value string_to_json(const std::string &string){
+Json::Value string_to_json(const std::string &string) {
     Json::Value json;
     Json::CharReaderBuilder builder;
     Json::CharReader *reader = builder.newCharReader();
@@ -33,7 +33,13 @@ httplib::Client make_client() {
 }
 
 void make_message_box(const std::string &message) {
-    QMessageBox msg;
-    msg.setText(QString::fromStdString(message));
+    QMessageBox msg(QMessageBox::Information, " ", QString::fromStdString(message));
     msg.exec();
+}
+
+std::shared_ptr<spdlog::logger> initialize_logger(const std::string &name) {
+    auto file_logger = spdlog::rotating_logger_mt(name, "logs/log.txt", 1048576 * 5, 3);
+    file_logger->set_pattern("[%T] [%n] [%l] %v");
+    file_logger->flush_on(spdlog::level::trace);
+    return file_logger;
 }
