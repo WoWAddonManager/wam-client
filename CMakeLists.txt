@@ -21,7 +21,7 @@ find_package(Boost 1.70.0 COMPONENTS system filesystem regex REQUIRED)
 find_package(Qt5 COMPONENTS Widgets Network REQUIRED)
 find_package(LibtorrentRasterbar REQUIRED)
 find_package(Threads REQUIRED)
-
+find_package(spdlog REQUIRED)
 file(GLOB_RECURSE SOURCE_FILES "src/*.cpp" "include/*.h" "include/json/*.h")
 
 include_directories("include/" "include/json")
@@ -36,6 +36,7 @@ target_link_libraries(wam
     Boost::regex
     Boost::system
     Boost::filesystem
+    spdlog::spdlog
     LibtorrentRasterbar::torrent-rasterbar
     Qt5::Widgets
     Qt5::Network
