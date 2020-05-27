@@ -20,8 +20,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_signup_dialog
-{
+class Ui_signup_dialog {
 public:
     QGridLayout *gridLayout;
     QHBoxLayout *horizontalLayout_3;
@@ -44,8 +43,7 @@ public:
     QPushButton *signup_button;
     QPushButton *login_button;
 
-    void setupUi(QDialog *signup_dialog)
-    {
+    void setupUi(QDialog *signup_dialog) {
         if (signup_dialog->objectName().isEmpty())
             signup_dialog->setObjectName(QString::fromUtf8("signup_dialog"));
         signup_dialog->resize(439, 270);
@@ -208,8 +206,7 @@ public:
         QMetaObject::connectSlotsByName(signup_dialog);
     } // setupUi
 
-    void retranslateUi(QDialog *signup_dialog)
-    {
+    void retranslateUi(QDialog *signup_dialog) {
         signup_dialog->setWindowTitle(QCoreApplication::translate("signup_dialog", "Dialog", nullptr));
         password_label->setText(QCoreApplication::translate("signup_dialog", "Password", nullptr));
         password_error_label->setText(QString());
@@ -230,7 +227,7 @@ public:
 };
 
 namespace Ui {
-    class signup_dialog: public Ui_signup_dialog {};
+    class signup_dialog : public Ui_signup_dialog {};
 } // namespace Ui
 
 QT_END_NAMESPACE

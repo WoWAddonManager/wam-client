@@ -20,8 +20,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_login_dialog
-{
+class Ui_login_dialog {
 public:
     QGridLayout *gridLayout;
     QLabel *label_2;
@@ -32,8 +31,7 @@ public:
     QPushButton *pushButton;
     QPushButton *pushButton_2;
 
-    void setupUi(QDialog *login_dialog)
-    {
+    void setupUi(QDialog *login_dialog) {
         if (login_dialog->objectName().isEmpty())
             login_dialog->setObjectName(QString::fromUtf8("login_dialog"));
         login_dialog->resize(400, 154);
@@ -89,8 +87,7 @@ public:
         QMetaObject::connectSlotsByName(login_dialog);
     } // setupUi
 
-    void retranslateUi(QDialog *login_dialog)
-    {
+    void retranslateUi(QDialog *login_dialog) {
         login_dialog->setWindowTitle(QCoreApplication::translate("login_dialog", "Login", nullptr));
         label_2->setText(QCoreApplication::translate("login_dialog", "Password", nullptr));
         label->setText(QCoreApplication::translate("login_dialog", "Email", nullptr));
@@ -101,7 +98,7 @@ public:
 };
 
 namespace Ui {
-    class login_dialog: public Ui_login_dialog {};
+    class login_dialog : public Ui_login_dialog {};
 } // namespace Ui
 
 QT_END_NAMESPACE
