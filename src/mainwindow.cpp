@@ -10,6 +10,7 @@
 #include "response.h"
 #include <boost/optional/optional_io.hpp>
 #include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -20,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->classic_table->hide();
     ui->ptr_table->hide();
     //ui->retail_table->horizontalHeader()->setStretchLastSection(true);
-    for(int i = 0; i < 4;  i++){
+    for (int i = 0; i < 4; i++) {
         ui->retail_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         ui->classic_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
         ui->ptr_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
@@ -31,9 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->tabWidget->setCurrentIndex(0);
 
-    ui->retail_table->setItem(0,0,new QTableWidgetItem("Hello World!"));
+    ui->retail_table->setItem(0, 0, new QTableWidgetItem("Hello World!"));
     auto addons = Addon::get_remote_addons().get_data();
-    if(addons != boost::none) {
+    if (addons != boost::none) {
         ui->retail_table->setRowCount(addons->size());
         for (int i = 0; i < addons->size(); i++) {
             auto addon = addons->at(i);
@@ -44,49 +45,51 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->set_wow_path_btn, &QPushButton::clicked, [&]() {
         QString file_path = QFileDialog::getExistingDirectory(this, "Select WoW Folder");
-
-        settings.set_base_wow_path(file_path.toStdString());
+        std::cout << (file_path.toStdString()) << std::endl;
+        settings.set_base_wow_path(file_path);
         settings.set_wow_folder_paths();
         ui->lineEdit->setText(QString::fromStdString(settings.get_base_wow_path()));
     });
 
-    connect(ui->wow_version_combo_box,  static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), [this](const QString& tab) {
-        swap_addon_list(tab);
-    });
+    connect(ui->wow_version_combo_box,
+            static_cast<void (QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged),
+            [this](const QString &tab) {
+                swap_addon_list(tab);
+            });
     connect(ui->actionQuit, &QAction::triggered, [&]() {
         exit(0);
     });
 
 
-    connect(ui->actionUploadAddon, &QAction::triggered, [&,dialog]() {
+    connect(ui->actionUploadAddon, &QAction::triggered, [&, dialog]() {
         dialog->show();
     });
 
     connect(ui->addon_search_field, &QLineEdit::returnPressed, [&, this]() {
         auto result = Addon::get_addon_by_name(ui->addon_search_field->text().toStdString());
 
-        if(result.get_error_code() == 200) {
+        if (result.get_data() != boost::none) {
             auto addon = result.get_data();
             auto get_addons_table = ui->get_addons_table;
             get_addons_table->setRowCount(1);
-            get_addons_table->setItem(0,0,new QTableWidgetItem(QString::fromStdString(addon->m_addonName)));
-            get_addons_table->setItem(0,1,new QTableWidgetItem(QString::fromStdString(addon->m_addon_version)));
-            get_addons_table->setItem(0,3,new QTableWidgetItem(QString::fromStdString(addon->m_description)));
+            get_addons_table->setItem(0, 0, new QTableWidgetItem(QString::fromStdString(addon->m_addonName)));
+            get_addons_table->setItem(0, 1, new QTableWidgetItem(QString::fromStdString(addon->m_addon_version)));
+            get_addons_table->setItem(0, 3, new QTableWidgetItem(QString::fromStdString(addon->m_description)));
             auto *widget = new QWidget();
             auto *install_button = new QPushButton();
             install_button->setText("Install");
             auto *layout = new QHBoxLayout(widget);
             layout->addWidget(install_button);
             layout->setAlignment(Qt::AlignCenter);
-            layout->setContentsMargins(0,0,0,0);
+            layout->setContentsMargins(0, 0, 0, 0);
             widget->setLayout(layout);
-            get_addons_table->setCellWidget(0,4, widget);
-            connect(install_button, &QPushButton::clicked, [&, addon](){
+            get_addons_table->setCellWidget(0, 4, widget);
+            connect(install_button, &QPushButton::clicked, [&, addon]() {
                 std::cout << "Instaling: " << addon;
             });
         }
-        else if (result.get_error_code() == 404) {
-            make_message_box("No Addon found!");
+        else if (result.get_data() == boost::none) {
+            make_message_box(result.get_message());
         }
         else {
             make_message_box("Woah something went wrong?");
@@ -99,18 +102,18 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 
-void MainWindow::swap_addon_list(const QString &version){
-    if(version == "Retail"){
+void MainWindow::swap_addon_list(const QString &version) {
+    if (version == "Retail") {
         ui->classic_table->hide();
         ui->ptr_table->hide();
         ui->retail_table->show();
     }
-    else if(version == "Classic"){
+    else if (version == "Classic") {
         ui->retail_table->hide();
         ui->ptr_table->hide();
         ui->classic_table->show();
     }
-    else  {
+    else {
         ui->retail_table->hide();
         ui->classic_table->hide();
         ui->ptr_table->show();
