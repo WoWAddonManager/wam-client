@@ -7,14 +7,13 @@
 #include <boost/range/iterator_range_core.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include <libtorrent/file_storage.hpp>
-#include <libtorrent/settings_pack.hpp>
 #include <libtorrent/session.hpp>
+#include <libtorrent/settings_pack.hpp>
 #include <libtorrent/create_torrent.hpp>
 
 #include "addon.h"
 #include "utils.h"
 #include "httplib.h"
-
 
 
 Addon Addon::create_addon(const std::string &addon_folder_path) {
@@ -87,21 +86,22 @@ void Addon::make_wam(const std::string &folder_path) {
 
 Response<std::vector<Addon>> Addon::get_remote_addons() {
     auto client = make_client();
+
     std::vector<Addon> addons{};
     auto result = client.Get("/api/addons");
-    if(result && result->status == 200) {
+    if (result && result->status == 200) {
         for (const Json::Value &addon : string_to_json(result->body)) {
             addons.emplace_back(addon);
         }
-        Response<std::vector<Addon>> response("200 OK", result->status, addons);
+        Response<std::vector<Addon>> response("200 OK", addons);
         return response;
     }
-    else if (!result){
-        Response<std::vector<Addon>> response("503 Service Unavailable", 503, boost::none);
+    else if (!result) {
+        Response<std::vector<Addon>> response("503 Service Unavailable", boost::none);
         return response;
     }
     else {
-        Response<std::vector<Addon>> response(result->body, result->status, boost::none);
+        Response<std::vector<Addon>> response(result->body, boost::none);
         return response;
     }
 }
@@ -109,18 +109,18 @@ Response<std::vector<Addon>> Addon::get_remote_addons() {
 Response<Addon> Addon::get_addon_by_name(const std::string &addon_name) {
     auto client = make_client();
     auto result = client.Get(std::string("/api/addons?name=" + addon_name).c_str());
-    if(result && result->status == 200) {
+    if (result && result->status == 200) {
         Json::Value root = string_to_json(result->body);
         Addon addon(root);
-        Response<Addon> response("200 OK", result->status, addon);
+        Response<Addon> response("200 OK", addon);
         return response;
     }
-    else if (!result){
-        Response<Addon> response("503 Service Unavailable", 503, boost::none);
+    else if (!result) {
+        Response<Addon> response("503 Service Unavailable", boost::none);
         return response;
     }
     else {
-        Response<Addon> response(result->body, result->status, boost::none);
+        Response<Addon> response(result->body, boost::none);
         return response;
     }
 }
@@ -135,7 +135,7 @@ void Addon::generate_torrent_info(const std::string &filepath) {
     boost::filesystem::recursive_directory_iterator dir_iter{filepath};
     auto range = boost::make_iterator_range(dir_iter, {});
     for (const boost::filesystem::directory_entry &entry: range) {
-        if(!boost::filesystem::is_directory(entry)){
+        if (!boost::filesystem::is_directory(entry)) {
             fs.add_file(entry.path().string(), boost::filesystem::file_size(entry.path()));
         }
     }
@@ -155,7 +155,7 @@ void Addon::generate_torrent_info(const std::string &filepath) {
 }
 
 std::string Addon::wow_version_to_string(const Addon::WoWVersion &wow_version) {
-    switch(wow_version){
+    switch (wow_version) {
         case WoWVersion::Retail:
             return std::string("Retail");
         case WoWVersion::Classic:
@@ -169,11 +169,11 @@ std::string Addon::wow_version_to_string(const Addon::WoWVersion &wow_version) {
 
 
 Addon::WoWVersion Addon::wow_version_to_enum(const std::string &wow_version) {
-    if(wow_version == "Retail")
+    if (wow_version == "Retail")
         return WoWVersion::Retail;
-    else if(wow_version == "Classic")
+    else if (wow_version == "Classic")
         return WoWVersion::Classic;
-    else if(wow_version == "PTR")
+    else if (wow_version == "PTR")
         return WoWVersion::PTR;
     else
         return WoWVersion::Invalid;
