@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_login_dialog.h"
+
 namespace Ui {
     class login_dialog;
 }
