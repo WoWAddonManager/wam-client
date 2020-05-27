@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.14.1
+** Created by: Qt User Interface Compiler version 5.14.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
@@ -28,20 +29,22 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_MainWindow
-{
+class Ui_MainWindow {
 public:
     QAction *actionQuit;
     QAction *actionUploadAddon;
+    QAction *actionLogin;
+    QAction *actionLogout;
+    QAction *actionSignUp;
     QWidget *centralwidget;
     QGridLayout *gridLayout_4;
     QTabWidget *tabWidget;
     QWidget *addon_tab;
     QGridLayout *gridLayout_3;
-    QComboBox *wow_version_combo_box;
-    QLabel *wow_version_label;
-    QTableWidget *ptr_table;
     QTableWidget *classic_table;
+    QComboBox *wow_version_combo_box;
+    QTableWidget *ptr_table;
+    QLabel *wow_version_label;
     QTableWidget *retail_table;
     QWidget *get_addons_tab;
     QGridLayout *gridLayout;
@@ -60,16 +63,27 @@ public:
     QLabel *label;
     QMenuBar *menuBar;
     QMenu *menuFile;
+    QMenu *menuAddons;
+    QMenu *menuFile_2;
 
-    void setupUi(QMainWindow *MainWindow)
-    {
+    void setupUi(QMainWindow *MainWindow) {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(813, 650);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8("../../Nextcloud/projects/wam/resources/WAM_logo.png"), QSize(), QIcon::Normal,
+                     QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         actionQuit = new QAction(MainWindow);
         actionQuit->setObjectName(QString::fromUtf8("actionQuit"));
         actionUploadAddon = new QAction(MainWindow);
         actionUploadAddon->setObjectName(QString::fromUtf8("actionUploadAddon"));
+        actionLogin = new QAction(MainWindow);
+        actionLogin->setObjectName(QString::fromUtf8("actionLogin"));
+        actionLogout = new QAction(MainWindow);
+        actionLogout->setObjectName(QString::fromUtf8("actionLogout"));
+        actionSignUp = new QAction(MainWindow);
+        actionSignUp->setObjectName(QString::fromUtf8("actionSignUp"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout_4 = new QGridLayout(centralwidget);
@@ -82,6 +96,25 @@ public:
         addon_tab->setObjectName(QString::fromUtf8("addon_tab"));
         gridLayout_3 = new QGridLayout(addon_tab);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        classic_table = new QTableWidget(addon_tab);
+        if (classic_table->columnCount() < 5)
+            classic_table->setColumnCount(5);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        classic_table->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        classic_table->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        classic_table->setHorizontalHeaderItem(2, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        classic_table->setHorizontalHeaderItem(3, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        classic_table->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        classic_table->setObjectName(QString::fromUtf8("classic_table"));
+        classic_table->setEnabled(true);
+        classic_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+        gridLayout_3->addWidget(classic_table, 2, 0, 1, 3);
+
         wow_version_combo_box = new QComboBox(addon_tab);
         wow_version_combo_box->addItem(QString());
         wow_version_combo_box->addItem(QString());
@@ -96,47 +129,30 @@ public:
 
         gridLayout_3->addWidget(wow_version_combo_box, 0, 1, 1, 1);
 
+        ptr_table = new QTableWidget(addon_tab);
+        if (ptr_table->columnCount() < 5)
+            ptr_table->setColumnCount(5);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(0, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(1, __qtablewidgetitem6);
+        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(2, __qtablewidgetitem7);
+        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(3, __qtablewidgetitem8);
+        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
+        ptr_table->setHorizontalHeaderItem(4, __qtablewidgetitem9);
+        ptr_table->setObjectName(QString::fromUtf8("ptr_table"));
+        ptr_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+        gridLayout_3->addWidget(ptr_table, 1, 0, 1, 3);
+
         wow_version_label = new QLabel(addon_tab);
         wow_version_label->setObjectName(QString::fromUtf8("wow_version_label"));
         sizePolicy.setHeightForWidth(wow_version_label->sizePolicy().hasHeightForWidth());
         wow_version_label->setSizePolicy(sizePolicy);
 
         gridLayout_3->addWidget(wow_version_label, 0, 0, 1, 1);
-
-        ptr_table = new QTableWidget(addon_tab);
-        if (ptr_table->columnCount() < 5)
-            ptr_table->setColumnCount(5);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        ptr_table->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        ptr_table->setHorizontalHeaderItem(1, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        ptr_table->setHorizontalHeaderItem(2, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        ptr_table->setHorizontalHeaderItem(3, __qtablewidgetitem3);
-        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        ptr_table->setHorizontalHeaderItem(4, __qtablewidgetitem4);
-        ptr_table->setObjectName(QString::fromUtf8("ptr_table"));
-
-        gridLayout_3->addWidget(ptr_table, 1, 0, 1, 3);
-
-        classic_table = new QTableWidget(addon_tab);
-        if (classic_table->columnCount() < 5)
-            classic_table->setColumnCount(5);
-        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        classic_table->setHorizontalHeaderItem(0, __qtablewidgetitem5);
-        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        classic_table->setHorizontalHeaderItem(1, __qtablewidgetitem6);
-        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        classic_table->setHorizontalHeaderItem(2, __qtablewidgetitem7);
-        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        classic_table->setHorizontalHeaderItem(3, __qtablewidgetitem8);
-        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
-        classic_table->setHorizontalHeaderItem(4, __qtablewidgetitem9);
-        classic_table->setObjectName(QString::fromUtf8("classic_table"));
-        classic_table->setEnabled(true);
-
-        gridLayout_3->addWidget(classic_table, 2, 0, 1, 3);
 
         retail_table = new QTableWidget(addon_tab);
         if (retail_table->columnCount() < 5)
@@ -152,6 +168,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
         retail_table->setHorizontalHeaderItem(4, __qtablewidgetitem14);
         retail_table->setObjectName(QString::fromUtf8("retail_table"));
+        retail_table->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         gridLayout_3->addWidget(retail_table, 3, 0, 1, 3);
 
@@ -254,11 +271,20 @@ public:
         menuBar->setGeometry(QRect(0, 0, 813, 24));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
+        menuAddons = new QMenu(menuBar);
+        menuAddons->setObjectName(QString::fromUtf8("menuAddons"));
+        menuFile_2 = new QMenu(menuBar);
+        menuFile_2->setObjectName(QString::fromUtf8("menuFile_2"));
         MainWindow->setMenuBar(menuBar);
 
+        menuBar->addAction(menuFile_2->menuAction());
         menuBar->addAction(menuFile->menuAction());
-        menuFile->addAction(actionUploadAddon);
-        menuFile->addAction(actionQuit);
+        menuBar->addAction(menuAddons->menuAction());
+        menuFile->addAction(actionSignUp);
+        menuFile->addAction(actionLogin);
+        menuFile->addAction(actionLogout);
+        menuAddons->addAction(actionUploadAddon);
+        menuFile_2->addAction(actionQuit);
 
         retranslateUi(MainWindow);
 
@@ -268,33 +294,35 @@ public:
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
-    void retranslateUi(QMainWindow *MainWindow)
-    {
+    void retranslateUi(QMainWindow *MainWindow) {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "WAM: WoW Addon Manager", nullptr));
         actionQuit->setText(QCoreApplication::translate("MainWindow", "Quit", nullptr));
         actionUploadAddon->setText(QCoreApplication::translate("MainWindow", "Upload Addon", nullptr));
+        actionLogin->setText(QCoreApplication::translate("MainWindow", "Login", nullptr));
+        actionLogout->setText(QCoreApplication::translate("MainWindow", "Logout", nullptr));
+        actionSignUp->setText(QCoreApplication::translate("MainWindow", "Sign Up", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = classic_table->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = classic_table->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Version", nullptr));
+        QTableWidgetItem *___qtablewidgetitem2 = classic_table->horizontalHeaderItem(2);
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Peers", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = classic_table->horizontalHeaderItem(3);
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Description", nullptr));
         wow_version_combo_box->setItemText(0, QCoreApplication::translate("MainWindow", "Retail", nullptr));
         wow_version_combo_box->setItemText(1, QCoreApplication::translate("MainWindow", "Classic", nullptr));
         wow_version_combo_box->setItemText(2, QCoreApplication::translate("MainWindow", "PTR", nullptr));
 
         wow_version_combo_box->setCurrentText(QCoreApplication::translate("MainWindow", "Retail", nullptr));
-        wow_version_label->setText(QCoreApplication::translate("MainWindow", "WoW Version", nullptr));
-        QTableWidgetItem *___qtablewidgetitem = ptr_table->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = ptr_table->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("MainWindow", "Version", nullptr));
-        QTableWidgetItem *___qtablewidgetitem2 = ptr_table->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("MainWindow", "Peers", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = ptr_table->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("MainWindow", "Description", nullptr));
-        QTableWidgetItem *___qtablewidgetitem4 = classic_table->horizontalHeaderItem(0);
+        QTableWidgetItem *___qtablewidgetitem4 = ptr_table->horizontalHeaderItem(0);
         ___qtablewidgetitem4->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
-        QTableWidgetItem *___qtablewidgetitem5 = classic_table->horizontalHeaderItem(1);
+        QTableWidgetItem *___qtablewidgetitem5 = ptr_table->horizontalHeaderItem(1);
         ___qtablewidgetitem5->setText(QCoreApplication::translate("MainWindow", "Version", nullptr));
-        QTableWidgetItem *___qtablewidgetitem6 = classic_table->horizontalHeaderItem(2);
+        QTableWidgetItem *___qtablewidgetitem6 = ptr_table->horizontalHeaderItem(2);
         ___qtablewidgetitem6->setText(QCoreApplication::translate("MainWindow", "Peers", nullptr));
-        QTableWidgetItem *___qtablewidgetitem7 = classic_table->horizontalHeaderItem(3);
+        QTableWidgetItem *___qtablewidgetitem7 = ptr_table->horizontalHeaderItem(3);
         ___qtablewidgetitem7->setText(QCoreApplication::translate("MainWindow", "Description", nullptr));
+        wow_version_label->setText(QCoreApplication::translate("MainWindow", "WoW Version", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = retail_table->horizontalHeaderItem(0);
         ___qtablewidgetitem8->setText(QCoreApplication::translate("MainWindow", "Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem9 = retail_table->horizontalHeaderItem(1);
@@ -303,7 +331,8 @@ public:
         ___qtablewidgetitem10->setText(QCoreApplication::translate("MainWindow", "Peers", nullptr));
         QTableWidgetItem *___qtablewidgetitem11 = retail_table->horizontalHeaderItem(3);
         ___qtablewidgetitem11->setText(QCoreApplication::translate("MainWindow", "Description", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(addon_tab), QCoreApplication::translate("MainWindow", "Addons", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(addon_tab),
+                              QCoreApplication::translate("MainWindow", "Addons", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Refresh", nullptr));
         comboBox->setItemText(0, QCoreApplication::translate("MainWindow", "Retail", nullptr));
         comboBox->setItemText(1, QCoreApplication::translate("MainWindow", "Classic", nullptr));
@@ -319,17 +348,21 @@ public:
         ___qtablewidgetitem15->setText(QCoreApplication::translate("MainWindow", "Description", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Search", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "WoW Version", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(get_addons_tab), QCoreApplication::translate("MainWindow", "Get Addons", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(get_addons_tab),
+                              QCoreApplication::translate("MainWindow", "Get Addons", nullptr));
         set_wow_path_btn->setText(QCoreApplication::translate("MainWindow", "Browse", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "WoW Folder Path", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(settings_tab), QCoreApplication::translate("MainWindow", "Settings", nullptr));
-        menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(settings_tab),
+                              QCoreApplication::translate("MainWindow", "Settings", nullptr));
+        menuFile->setTitle(QCoreApplication::translate("MainWindow", "Account", nullptr));
+        menuAddons->setTitle(QCoreApplication::translate("MainWindow", "Addons", nullptr));
+        menuFile_2->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class MainWindow: public Ui_MainWindow {};
+    class MainWindow : public Ui_MainWindow {};
 } // namespace Ui
 
 QT_END_NAMESPACE
