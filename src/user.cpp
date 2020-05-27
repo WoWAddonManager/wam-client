@@ -1,3 +1,4 @@
+#include "settingsmanager.h"
 #include "response.h"
 #include "utils.h"
 #include "user.h"
@@ -7,6 +8,9 @@ Response<User> User::login(const std::string &email, const std::string &password
     Json::Value root;
     root["email"] = email;
     root["password"] = password;
+
+    if (email.empty() || password.empty())
+        return Response<User>("Username/password empty", boost::none);
 
     auto response = client.Post(LOGIN_AUTH_ROUTE, root.toStyledString(), "application/json");
     if (response) {
@@ -18,17 +22,14 @@ Response<User> User::login(const std::string &email, const std::string &password
             user.m_client_id = response->get_header_value("client");
             user.m_email = json["uid"].asString();
             user.m_display_name = json["username"].asString();
-            return Response<User>(response->body, response->status, user);
+            return Response<User>(response->body, user);
         }
         else {
-            return Response<User>(response->body, response->status, boost::none);
+            return Response<User>(string_to_json(response->body)["errors"][0].asString(), boost::none);
         }
     }
     else {
-        Json::Value json;
-        json["status"] = "error";
-        json["status"]["error"] = "Api Server Offline";
-        return Response<User>(json.toStyledString());
+        return Response<User>("Server offline, check back later.", boost::none);
     }
 
 }
@@ -44,24 +45,45 @@ Response<User> User::signup(const std::string &username, const std::string &emai
     root["password_confirmation"] = password_confirmation;
     auto response = client.Post(BASE_AUTH_ROUTE, root.toStyledString(), "application/json");
     if (response) {
-        Json::Value json;
-
-        auto body = string_to_json(response->body)["data"];
-        body["access-token"] = response->get_header_value("access-token");
-        body["client"] = response->get_header_value("client");
-        body["uid"] = response->get_header_value("uid");
-        User user(json);
-        return Response<User>(response->body, response->status, user);
+        auto user_json = string_to_json(response->body)["data"];
+        user_json["access-token"] = response->get_header_value("access-token");
+        user_json["client"] = response->get_header_value("client");
+        user_json["uid"] = response->get_header_value("uid");
+        return Response<User>(response->body, User(user_json));
     }
     else {
-        return Response<User>();
+        return Response<User>(string_to_json(response->body)["error"][0].asString(), boost::none);
     }
 
 }
 
+Response<User> User::logout() {
+    SettingsManager settings;
+    httplib::Headers headers = {
+        {"access-token", settings.get_token()},
+        {"uid",          settings.get_uid()},
+        {"client",       settings.get_client()}
+    };
+    auto client = make_client();
+    auto response = client.Delete("/auth/sign_out", headers);
+
+    return Response<User>(response->body, User(string_to_json(response->body)["data"]));
+}
+
 //! \brief Validates a user session token. true if valid, false otherwise.
-Response<bool> User::validate() {
-    return Response<bool>("", 0, false);
+bool User::validate() {
+    auto client = make_client();
+    SettingsManager sm;
+    httplib::Headers headers = {
+        {"access-token", sm.get_token()},
+        {"uid",          sm.get_uid()},
+        {"client",       sm.get_client()}
+    };
+    auto response = client.Get("/auth/validate_token", headers);
+    std::cout << response->body << std::endl;
+    auto body = string_to_json(response->body);
+
+    return body["success"].asBool();
 }
 
 std::string User::get_display_name() const {
@@ -74,6 +96,14 @@ std::string User::get_account_id() const {
 
 std::string User::get_email() const {
     return this->m_email;
+}
+
+std::string User::get_token() const {
+    return this->m_token;
+}
+
+std::string User::get_client() const {
+    return this->m_client_id;
 }
 
 std::ostream &operator<<(std::ostream &os, const User &user) {
@@ -100,4 +130,7 @@ User::User(const Json::Value &json) {
     this->m_client_id = json["client"].asString();
     this->m_email = json["email"].asString();
 }
+
+
+
 
