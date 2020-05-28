@@ -11,7 +11,7 @@ WAM (WoW Addon Manager) is a multi-platform peer-to-peer addon management soluti
 
 # Building
 
-See the [Building Wiki Page](wiki/Building)
+See the [Building Wiki Page](https://github.com/WoWAddonManager/wam-client/wiki/Building)
 
 # Contributing 
 
