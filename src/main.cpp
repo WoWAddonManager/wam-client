@@ -1,8 +1,6 @@
 #include <QFile>
 #include <QApplication>
-#include <boost/log/core.hpp>
 #include <libtorrent/session.hpp>
-#include <boost/log/utility/setup/file.hpp>
 #include "mainwindow.h"
 #include "upload_addon_dialog.h"
 #include "login_dialog.h"

@@ -5,7 +5,6 @@
 #include <ostream>
 
 #include "response.h"
-#include "exceptions.h"
 
 class User {
 public:
